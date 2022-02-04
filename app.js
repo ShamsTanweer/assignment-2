@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const https = require ("https")
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
+require ('dotenv').config();
 
 const app = express();
 
@@ -10,14 +11,14 @@ let mailTransporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: "shamstanweerYousuf@gmail.com",
-        pass: "testmail@54321"
+        pass: process.env.GPASS
     }
 });
 
 app.use(express.static("Public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
-mongoose.connect("mongodb+srv://admin-shams:shams-12345@cluster0.cr0cn.mongodb.net/mailingListDB?retryWrites=true&w=majority")
+mongoose.connect(process.env.MDB)
 
 
 const mailingSchema = {
